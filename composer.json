@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Bageur\\Ecommerce\\EcommerceServiceProvider"
+                "Bageur\\Page\\PageServiceProvider"
             ]
         }
     }
