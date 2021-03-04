@@ -5,6 +5,7 @@ namespace Bageur\Page;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Bageur\Page\model\page;
+use Illuminate\Support\Str;
 use Validator;
 
 class PageCmsController extends Controller
@@ -28,6 +29,7 @@ class PageCmsController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $rules    	= [
                         'judul'		     		=> 'required'
                     ];
@@ -45,6 +47,11 @@ class PageCmsController extends Controller
             }
             $page               = new page;
             $page->judul        = $request->judul;
+            if ($request->judul_seo == null) {
+                $page->judul_seo    = Str::slug($request->judul);
+            }else{
+                $page->judul_seo    = $request->judul_seo;
+            }
             $page->semua_meta   = json_encode($input);
             $page->type         = $request->type;
             $page->status       = $request->status;
@@ -95,6 +102,11 @@ class PageCmsController extends Controller
             }
             $page               = page::findOrFail($id);
             $page->judul        = $request->judul;
+            if (empty($request->judul_seo)) {
+                $page->judul_seo    = Str::slug($request->nama_jadwal);
+            }else{
+                $page->judul_seo    = $request->judul_seo;
+            }
             $page->semua_meta   = json_encode($request->include);
             $page->type         = $request->type;
             $page->status       = $request->status;
