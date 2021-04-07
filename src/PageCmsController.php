@@ -75,8 +75,9 @@ class PageCmsController extends Controller
     public function show($id)
     {
         $page = page::findOrFail($id);
-        $data = ['judul' => $page->judul , 'semua_meta' => $page->semua_meta , 'type' => $page->type , 'status' => $page->status, 'konten' => $page->konten];
-        return response()->json($data);
+        return $page;
+        // $data = ['judul' => $page->judul , 'semua_meta' => $page->semua_meta , 'type' => $page->type , 'status' => $page->status, 'konten' => $page->konten];
+        // return response()->json($data);
     }
 
     /**
