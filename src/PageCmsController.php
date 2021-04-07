@@ -110,7 +110,7 @@ class PageCmsController extends Controller
             }else{
                 $page->judul_seo    = $request->judul_seo;
             }
-            $page->semua_meta   = json_encode($request->include);
+            $page->semua_meta   = $input;
             $page->type         = $request->type;
             $page->status       = $request->status;
             $page->konten       = \Bageur::textarea($request->konten);
