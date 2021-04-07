@@ -5,6 +5,7 @@ namespace Bageur\Page;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Bageur\Page\model\page;
+use Illuminate\Support\Str;
 use Validator;
 
 class PageCmsController extends Controller
@@ -28,6 +29,7 @@ class PageCmsController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $rules    	= [
                         'judul'		     		=> 'required'
                     ];
@@ -45,11 +47,19 @@ class PageCmsController extends Controller
             }
             $page               = new page;
             $page->judul        = $request->judul;
-            $page->semua_meta   = json_encode($input);
-            $page->type         = $request->type;
-            $page->status       = $request->status;
-            $page->konten       = $request->konten;
-            $page->view         = $request->view;
+            if ($request->judul_seo == null) {
+                $page->judul_seo    = Str::slug($request->judul);
+            }else{
+                $page->judul_seo    = $request->judul_seo;
+            }
+            $page->semua_meta         = json_encode($input);
+            $page->type               = $request->type;
+            $page->status             = $request->status;
+            $page->konten             = \Bageur::textarea($request->konten);
+            $page->training_id        = $request->training_id;
+            $page->training_jenis_id  = $request->training_jenis_id;
+            $page->training_group_id  = $request->training_group_id;
+            $page->view               = $request->view;
             $page->save();
 
             return response(['status' => true ,'text'    => 'has input'], 200);
@@ -95,10 +105,18 @@ class PageCmsController extends Controller
             }
             $page               = page::findOrFail($id);
             $page->judul        = $request->judul;
+            if (empty($request->judul_seo)) {
+                $page->judul_seo    = Str::slug($request->nama_jadwal);
+            }else{
+                $page->judul_seo    = $request->judul_seo;
+            }
             $page->semua_meta   = json_encode($request->include);
             $page->type         = $request->type;
             $page->status       = $request->status;
-            $page->konten       = $request->konten;
+            $page->konten       = \Bageur::textarea($request->konten);
+            $page->training_id        = $request->training_id;
+            $page->training_jenis_id  = $request->training_jenis_id;
+            $page->training_group_id  = $request->training_group_id;
             $page->view         = $request->view;
             $page->save();
 
