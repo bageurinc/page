@@ -52,11 +52,14 @@ class PageCmsController extends Controller
             }else{
                 $page->judul_seo    = $request->judul_seo;
             }
-            $page->semua_meta   = json_encode($input);
-            $page->type         = $request->type;
-            $page->status       = $request->status;
-            $page->konten       = $request->konten;
-            $page->view         = $request->view;
+            $page->semua_meta         = json_encode($input);
+            $page->type               = $request->type;
+            $page->status             = $request->status;
+            $page->konten             = \Bageur::textarea($request->konten);
+            $page->training_id        = $request->training_id;
+            $page->training_jenis_id  = $request->training_jenis_id;
+            $page->training_group_id  = $request->training_group_id;
+            $page->view               = $request->view;
             $page->save();
 
             return response(['status' => true ,'text'    => 'has input'], 200);
@@ -110,7 +113,10 @@ class PageCmsController extends Controller
             $page->semua_meta   = json_encode($request->include);
             $page->type         = $request->type;
             $page->status       = $request->status;
-            $page->konten       = $request->konten;
+            $page->konten       = \Bageur::textarea($request->konten);
+            $page->training_id        = $request->training_id;
+            $page->training_jenis_id  = $request->training_jenis_id;
+            $page->training_group_id  = $request->training_group_id;
             $page->view         = $request->view;
             $page->save();
 

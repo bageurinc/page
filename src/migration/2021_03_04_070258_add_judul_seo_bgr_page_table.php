@@ -15,6 +15,9 @@ class AddJudulSeoBgrPageTable extends Migration
     {
         Schema::table('bgr_page', function (Blueprint $table) {
             $table->string('judul_seo')->nullable()->after('judul');
+            $table->integer('training_jenis_id')->unsigned()->nullable();
+            $table->integer('training_id')->unsigned()->nullable();
+            $table->integer('training_group_id')->unsigned()->nullable();
         });
     }
 
